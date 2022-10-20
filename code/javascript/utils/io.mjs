@@ -40,7 +40,7 @@ function createStatusMapFromKeys(keyMap) {
 }
 
 function readKeyState(keys, resetAfterRead) {
-    resetAfterRead = resetAfterRead === false ? false:true;
+    resetAfterRead = resetAfterRead || true;
     let isPressed = false;
 
     for (let i = 0; i < keys.length; i++) {

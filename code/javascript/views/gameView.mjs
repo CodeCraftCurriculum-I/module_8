@@ -37,24 +37,33 @@ const eventHandlers = {
 }
 
 function ready(difLevel){
-    isGameOver = false;
-    countdownValue = 0;
     dificultyLevel = difLevel || 0;
-    currentLevel = 0;
-    level = assets.LEVELS[currentLevel];
-    playMap = level.map
-    bounds = Write.strBounds(playMap)
+    resetForNewLevel();
+}
 
-    let sp = findStartPosition(playMap);
-    lander.row = sp.row;
-    lander.col = sp.col;
-  
-    playMap = playMap.replace(PLAYER, EMPTY);
-    baseMap = playMap.split("\n");
+function resetForNewLevel(){
+    isGameOver = false;
+    isLevelComplete = false;
+    countdownValue = 0;
+    currentLevel++;
+
+    if(currentLevel < assets.LEVELS.length){
+        level = assets.LEVELS[currentLevel];
+        playMap = level.map
+        lander.fuel = level.fuel;
+        bounds = Write.strBounds(playMap)
+
+        let sp = findStartPosition(playMap);
+        lander.row = sp.row;
+        lander.col = sp.col;
     
-    for(let i = 0; i < baseMap.length; i++){
-        let row = baseMap[i].split("");
-        baseMap[i] = row;
+        playMap = playMap.replace(PLAYER, EMPTY);
+        baseMap = playMap.split("\n");
+        
+        for(let i = 0; i < baseMap.length; i++){
+            let row = baseMap[i].split("");
+            baseMap[i] = row;
+        }
     }
 }
 
@@ -71,6 +80,14 @@ function update(keyStates, timeDelta){
         return; 
     }
 
+    if(isLevelComplete){
+        countdownValue -= timeDelta;
+        if(countdownValue <= 0){
+            resetForNewLevel();
+        }
+        return;
+    }
+
 
     if(keyStates.UP(false) || keyStates.DOWN()){
         if(keyStates.UP()){
@@ -78,11 +95,17 @@ function update(keyStates, timeDelta){
             boost = true;
         } else {
             lander.vy += DOWN;
+            boost = true;
         }    
     }   
     
     if(keyStates.LEFT(false) || keyStates.RIGHT()){
         lander.vx += keyStates.LEFT() ? LEFT:RIGHT;
+        boost = true;
+    }
+
+    if(boost){
+        lander.fuel -= 0.1;
     }
 
     lander.vy = Math.min(lander.vy +  gravity, MAX_VY);

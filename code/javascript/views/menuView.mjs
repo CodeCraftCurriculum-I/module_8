@@ -9,6 +9,8 @@ let activeMenuIndex = 0
 let menuStartRow = 0; 
 let menuStartCol = 0;
 
+const highScore = [{name:"XXX", score:"000"}, {name:"XXX", score:"000"},{name:"XXX", score:"000"}]
+
 const eventHandlers = {
     onChangeGameStateEventHandler:null
 }
@@ -58,7 +60,17 @@ function update(keyStates,timeDelta){
 
 function draw(dirty, timeDelta){
     if(dirty){
-        Write.centerd(gameAssets.LOGO);
+        Write.topCenter(gameAssets.LOGO);
+
+        let row = Write.SCREEN_CENTER.row -4;
+        Write.withOffsett(`High Score`, row, Write.SCREEN_CENTER.column - 5 );
+        row++;
+        for(let res of highScore){
+            Write.withOffsett(`${res.name}  ${res.score}`, row, Write.SCREEN_CENTER.column - 4 );
+            row++;
+        }
+
+
         Write.withOffsett(menu,menuStartRow, menuStartCol);
         Write.bottomCenter("Press SPACE to play, q to quit");
     }
