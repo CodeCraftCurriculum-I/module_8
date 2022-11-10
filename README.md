@@ -3,22 +3,22 @@ Before you write any code, you should "sketch" the pseudo code and make a flowch
 
 REMEMBER:
 
-* Remember to install SDL wraper for node 
-https://github.com/kmamal/node-sdl
-npm install @kmamal/sdl
+- Remember to install SDL wraper for node  
+https://github.com/kmamal/node-sdl  
+npm install @kmamal/sdl  
 
-* NB! About canvas package !!!!
-canvas package requiers:
+- NB! About canvas package !!!!  
+canvas package requiers:  
 OSX: brew install pkg-config cairo pango libpng jpeg giflib librsvg 
-Windows: https://github.com/Automattic/node-canvas/wiki/Installation:-Windows
+Windows: https://github.com/Automattic/node-canvas/wiki/Installation:-Windows  
 
-*
+- Install canvas
 https://github.com/Automattic/node-canvas 
 npm install canvas
 
 
 
 
-Graphics from The NounProject
+Graphics from The NounProject  
 - Meteor by Singlar
 - Spaceship by Caesar Rizky Kurniawan
